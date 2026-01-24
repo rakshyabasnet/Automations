@@ -1,15 +1,46 @@
-from selenium.webdriver import Chrome
+from selenium.webdriver import Chrome, Edge, Firefox
 from libaryfiles.ConfigReader import configRead
 
+driver = None
 
 def startBrowser():
     global driver
-    driver=Chrome()
-    driver.get(configRead('Details', 'App_URL'))
-    driver.get("https://www.facebook.com/r.php")
 
-    driver.maximize_window()
+    if configRead('Details', 'browser') == 'chrome':
+        driver = Chrome()
+    elif configRead('Details', 'browser') == 'edge':
+        driver = Edge()
+    else:
+        driver = Firefox()
+
+    driver.get(configRead('Details', 'APP_URL'))
     return driver
 
+
 def closeBrowser():
-    driver.close()
+    global driver
+    if driver is not None:
+        driver.quit()
+
+
+
+
+
+
+# from selenium .webdriver import Chrome,Edge,Firefox
+# from libraryfiles.ConfigReader import configRead
+
+# def stfartBrowser():
+#     global driver
+#     if configRead('Details','browser')=='chrome':
+#         driver=Chrome()
+#     elif configRead('Details','browser')=='edge':
+#         driver=Edge()
+#     else:
+#         driver=Firefox()
+#     driver.get(configRead('Details' ,'APP_URL'))
+#     driver.maximize_window()
+#     return driver
+
+# def closeBrowser(driver):
+#     driver.quit()
